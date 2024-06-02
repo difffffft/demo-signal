@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>demo-signal</title>
+    </head>
+
+    <body>
+        <div style="display: flex;">
+            <span>firstName:</span>
+            <input id="firstName" type="text">
+        </div>
+        <div style="display: flex;">
+            <span>lastName:</span>
+            <input id="lastName" type="text">
+        </div>
+        <div style="display: flex;">
+            <span>fullName:</span>
+            <input id="fullName" type="text">
+        </div>
+    </body>
+
+    <script src="./signal.js"></script>
+    <script>
+        let firstName = ref("")
+        let lastName = ref("")
+        let fullName = computed(() => firstName.value + lastName.value)
+
+        effect(() => {
+            document.querySelector("#fullName").value = fullName.value
+        })
+
+        const firstNameElement = document.querySelector("#firstName")
+        firstNameElement.addEventListener("change", (e) => {
+            firstName.value = e.target.value
+        })
+
+        const lastNameElement = document.querySelector("#lastName")
+        lastNameElement.addEventListener("change", (e) => {
+            lastName.value = e.target.value
+        })
+    </script>
+
+</html>
